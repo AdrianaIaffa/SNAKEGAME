@@ -21,7 +21,7 @@ function loadGame() {
 
   //SNAKE
   const startSnake = [32]
-  let currentSnake = [...startSnake]
+  let currentSnake = startSnake
   console.log(currentSnake)
   
 
@@ -29,7 +29,7 @@ function loadGame() {
 
   //FOOD
   let foodCell = Math.floor((Math.random() * 99) +1)
-  let startFood = foodCell 
+  // let startFood = addFood(foodCell) - currentSnake
 //   - startSnake || currentSnake  //* is this ging to be an if statement?
 //   let placeFood = [...startFood]
                 //*----------------------------------------------------
@@ -53,7 +53,7 @@ function loadGame() {
     //*adds our character in its startong position
     // console.log(cells)
     addSnake(startSnake);
-    addFood(startFood)
+    addFood()
   }
 
 //?ADD CHARACTERS ---------------------------------------------------------------------------
@@ -62,6 +62,7 @@ function loadGame() {
     //*this will helps us add and remove characters depending on how the game progresses
   function addSnake(position) {
     console.log("SNAKE BEING ADDED TO THE FOLLLOWING CELL ->", position);
+    // currentSnake
     cells[position].classList.add("snake");
   }
    //*remove snake
@@ -79,7 +80,7 @@ function loadGame() {
   //*add food
   function addFood(position) {
     console.log("FOOD BEING ADDED TO THE FOLLOWING CELL ->", position);
-    cells[position].classList.add("food");
+    cells[foodCell].classList.add("food");
   }
   //*remove food
   function removeFood() {
@@ -106,6 +107,7 @@ function loadGame() {
     if (key === up && currentSnake >+ width) {
       console.log("UP")
       currentSnake -= width
+      growSnake(currentSnake)
     } else if (key === down && currentSnake + width <= cellCount - 1) {
       console.log("DOWN")
       currentSnake += width
@@ -129,30 +131,32 @@ function loadGame() {
 
   //*snake automated movement once the game starts
   function automaticSnake() {
-    const newHeadposition= []
+    // const newHeadposition= []
     currentSnake++
     removeSnakeMotion()
+    // array.forEach(element => {
+      
+    // });
     newHeadposition.push(addSnake(currentSnake))
 } 
-  setInterval(automaticSnake, 1000)
+  // setInterval(automaticSnake, 1000)
 
 
   //*snake growth when head hits food
 
       //*---------------------------------------------------------------------
 
-// function growSnake() {//* this also needs to place food again on the board
-//     if(currentSnake[0] === startFood) {
-//     for(let i=0; i<snake.length; i++) {
-//         currentSnake.push(cells[position].classList.add("snake"))
-//         removeFood()
-//           }
-//           addFood(placeFood)
-//         }
-   
-//     return currentSnake;
-// }
-// growSnake()
+      function growSnake(position) {//* this also needs to place food again on the board
+        if(cells[position].classList.contains("food")) {
+          currentSnake.unshift(cells[position].classList.add("snake"))
+            removeFood()
+            addFood()
+            }
+       
+        return currentSnake;
+        
+    }
+    growSnake()
 
 // function checkforhit(){}
 
