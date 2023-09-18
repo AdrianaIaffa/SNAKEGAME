@@ -21,7 +21,7 @@ function loadGame() {
 
   //SNAKE
   const startSnake = [32]
-  let currentSnake = startSnake
+  let currentSnake = [...startSnake]
   console.log(currentSnake)
   
 
@@ -29,7 +29,7 @@ function loadGame() {
 
   //FOOD
   let foodCell = Math.floor((Math.random() * 99) +1)
-  // let startFood = addFood(foodCell) - currentSnake
+  // let startFood = foodCell - currentSnake
 //   - startSnake || currentSnake  //* is this ging to be an if statement?
 //   let placeFood = [...startFood]
                 //*----------------------------------------------------
@@ -60,7 +60,7 @@ function loadGame() {
 
     //*add snake
     //*this will helps us add and remove characters depending on how the game progresses
-  function addSnake(position) {
+  function addSnake(snake, cells) {
     console.log("SNAKE BEING ADDED TO THE FOLLLOWING CELL ->", position);
     // currentSnake
     cells[position].classList.add("snake");
@@ -104,9 +104,9 @@ function loadGame() {
     removeSnake();
 
     //check which key was pressed and execut the code
-    if (key === up && currentSnake >+ width) {
+    if (key === up && currentSnake[0] >+ width) {
       console.log("UP")
-      currentSnake -= width
+      currentSnake[0] -= width
       growSnake(currentSnake)
     } else if (key === down && currentSnake + width <= cellCount - 1) {
       console.log("DOWN")
@@ -146,17 +146,17 @@ function loadGame() {
 
       //*---------------------------------------------------------------------
 
-      function growSnake(position) {//* this also needs to place food again on the board
-        if(cells[position].classList.contains("food")) {
-          currentSnake.unshift(cells[position].classList.add("snake"))
-            removeFood()
-            addFood()
-            }
+    //   function growSnake(position) {//* this also needs to place food again on the board
+    //     if(cells[position].classList.contains("food")) {
+    //       currentSnake.unshift(cells[position].classList.add("snake"))
+    //         removeFood()
+    //         addFood()
+    //         }
        
-        return currentSnake;
+    //     return currentSnake;
         
-    }
-    growSnake()
+    // }
+    // growSnake()
 
 // function checkforhit(){}
 
