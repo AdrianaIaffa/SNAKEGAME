@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    height: 100vh;
+    margin: 0;
+  }
+
+/* -----PAGE LAYOUT----------------------------------------------------------------*/
+    .gamearea {
+    display: flex;
+    flex-direction: column;
+  }
+  .statspanel {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border: 1px solid red;
+    width: 600px; 
+    height: 50px;
+    margin: 0 auto;
+  }  
+   .score, .time, .snakestats {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    width: 33%;
+    height: 90%;
+  } 
+  .snakegrid {
+    display: flex;
+    justify-content: center;
+   
+    
+  }
+  
+  /*------ FOR GAME GRID---------------------------------------------------------- */
+  .grid-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+  }
+  
+  .grid {
+    align-items: center;
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: center;
+    height: 600px;
+    width: 600px;
+  }
+  
+  .grid div {
+    border: 1px solid lightgrey;
+    flex-grow: 1;
+    /* height: 10%;
+    width: 10%; */
+  }
+    /*------ CHARACTERS---------------------------------------------------------- */
+
+  .grid div.snake {
+    background-size: contain;
+    background-color: chartreuse;
+    cursor: pointer;
+  }
+  .grid div.food {
+    cursor: pointer;
+    background-color: cornflowerblue;
+  }
+
+  /*  ------- MODAL------------------------------------------------------------- */
+  #staticBackdrop {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 800px;
+  }
+
+  .modal-dialog {
+   box-shadow:  6px 10px 12px #000;
+  }
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    border: none;
+  }
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menubtn {
+    padding: 10px;
+    background-color: white;
+  }
+
+  .menubtn:hover { 
+    background-color: aqua; 
+   
+  } 
+
+
+  
