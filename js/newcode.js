@@ -23,7 +23,7 @@ function loadGame() {
   //create  a variable where we will update the values of snake
   let currentSnake = [];
 
-  const gridElements = document.querySelectorAll(".grid>div");
+ 
   let foodCell = Math.floor(Math.random() * cellCount);
   let snakeTimer;
   let snakeDirection = 1;
@@ -43,6 +43,7 @@ function loadGame() {
   }
 
   function addSnake(snake, eachCellinsideGrid) {
+     const gridElements = document.querySelectorAll(".grid>div");
     gridElements.forEach((cell) => cell.classList.remove("snake"));
     for (let i = 0; i < snake.length; i++) {
       eachCellinsideGrid[snake[i]].classList.add("snake");
@@ -88,34 +89,45 @@ function loadGame() {
   }
 
   function startMovement() {
-    clearInterval(snakeTimer);
-    snakeTimer = setInterval(() => {
-      const currentHorizontal = snake[0] % width;
-      const currentVertical = Math.floor(snake[0] / width);
-      if (
-        (currentHorizontal === width - 1 && snakeDirection === 1) ||
-        (currentHorizontal === 0 && snakeDirection === -1) ||
-        (currentVertical === width - 1 && snakeDirection === width) ||
-        (currentVertical === 0 && snakeDirection === -width)
-      ) {
-        clearInterval(snakeTimer);
-        console.log("gameOver");
-        return;
-      }
 
-      if (!eachCellinsideGrid[snake[0] + snakeDirection].classList.contains("food")
-      ) {
+  
+    clearInterval(snakeTimer)
+     snakeTimer = setInterval(()=> {
+      const currentX = snake[0] % width
+      const currentY = Math.floor(snake[0] / width)
+      if(
+        currentX === 9 && snakeDirection === 1 || 
+        currentX === 0 && snakeDirection === -1 || 
+        currentY === 9 && snakeDirection === 10 || 
+        currentY === 0 && snakeDirection === -10 
+        ) {
+          clearInterval(snakeTimer)
+          console.log('gameOver')
+          displayGameOver();
+          return
+        }
+          
+      if(!eachCellinsideGrid[snake[0] + snakeDirection].classList.contains("food")) {
         snake.pop();
       } else {
-        removeFood();
-        addFood(eachCellinsideGrid);
-      }
-      snake.unshift(snake[0] + snakeDirection);
-      addSnake(snake, eachCellinsideGrid);
-    }, 1000);
-  }
-  startMovement();
+        removeFood()
+        addFood(eachCellinsideGrid)
+      }  
+      snake.unshift(snake[0] + snakeDirection)
+        addSnake(snake, eachCellinsideGrid)
+     }, 1000 )
+    }
+  startMovement()
 
+
+  function displayGameOver() {
+    const gameOver = document.createElement("p")
+    const display = document.querySelector(".display")
+    gameOver.innerHTML = "Game Over"
+    gameOver.classList.add("game-over-message")
+    // display.innerHTML = ""
+    display.innerHTML = "Game Over"
+  }
   //! EVENTS-----------------------------------------------------------------------------------
   //!------------------------------------------------------------------------------------------
   document.addEventListener("keyup", handleMovement);

@@ -12,6 +12,7 @@
 .title {
   margin: 0 auto;
   font-size: 50px;
+  text-align: center;
 }    
 
 .gamearea {
@@ -92,6 +93,23 @@
     cursor: pointer;
     background-color: cornflowerblue;
   }
+
+
+/*----- Stats*/
+.display {
+  display: flex;
+  margin: 0 auto;
+  border: solid 1px red;
+  width: 400px;
+  height:100px;
+  font-size: x-large;
+}
+
+.display p {
+  font-size: x-large;
+  text-align: center;
+}
+
 
   /*  ------- MODAL------------------------------------------------------------- */
   /* #staticBackdrop {
