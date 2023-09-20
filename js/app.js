@@ -1,96 +1,81 @@
-function loadGame() {
-  // ! VARIABLE & DOM ELEMENTS ----------------------------------------------------------------
-  //!------------------------------------------------------------------------------------------
+//initialize game with
 
-  // ? DOM ELEMENTS ---------------------------------------------------------------------------
-  
-  //*create grid-------------------------------------------------------------------------------
+function loadGame() {
+  //create grid container where cells wil be created document.querySelector(.grid)
 
   const grid = document.querySelector(".grid");
 
-  // ? VARIABLES -------------------------------------------------------------------------------
-  
-  //*board config
+  //draw grid inside grid container
 
+  //creats a variable with the width
   const width = 10;
+  //creates a variable with the length
   const height = 10;
+  //creates a variable that multiplies width by length
   const cellCount = width * height;
-  let cells = [];
+  //creates an empty array called cells, where each individual
+  //cell created in the function startGame will be pushed
+  //to create a grid
+  let eachCellinsideGrid = [];
 
-  //*character config
+  //create a variable with the starting values of snake
+  const snake = [32, 31, 30];
+  //create  a variable where we will update the values of snake
+  let currentSnake = [];
 
-  //SNAKE
-  const startSnake = [32]
-  let currentSnake = [...startSnake]
-  console.log(currentSnake)
-  
+  const gridElements = document.querySelectorAll(".grid>div")
+  let foodCell = Math.floor(Math.random() * cellCount);
+  const score = 0
 
-    //*----------------------------------------------------
 
-  //FOOD
-  let foodCell = Math.floor((Math.random() * 99) +1)
-  // let startFood = foodCell - currentSnake
-//   - startSnake || currentSnake  //* is this ging to be an if statement?
-//   let placeFood = [...startFood]
-                //*----------------------------------------------------
-
-  //!FUNCTIONS----------------------------------------------------------------------------------
-  //!------------------------------------------------------------------------------------------
-
-  //*this creates the board and sets in on the page
   function startGame() {
     for (let i = 0; i < cellCount; i++) {
-      // console.log(i)
+      
       const cell = document.createElement("div");
       cell.innerText = i;
       cell.dataset.index = i;
       cell.style.height = `${100 / height}%`;
       cell.style.width = `${100 / width}%`;
       grid.appendChild(cell);
-      console.log(cell);
-      cells.push(cell);
+     
+      eachCellinsideGrid.push(cell);
+     
     }
-    //*adds our character in its startong position
-    // console.log(cells)
-    addSnake(startSnake);
-    addFood()
+    addSnake(snake, eachCellinsideGrid);
+    addFood(eachCellinsideGrid);
+  
   }
 
-//?ADD CHARACTERS ---------------------------------------------------------------------------
 
-    //*add snake
-    //*this will helps us add and remove characters depending on how the game progresses
-  function addSnake(snake, cells) {
-    console.log("SNAKE BEING ADDED TO THE FOLLLOWING CELL ->", position);
-    // currentSnake
-    cells[position].classList.add("snake");
-  }
-   //*remove snake
-  function removeSnake(position) {
-    console.log("SNAKE REMOVED")
-    cells[currentSnake].classList.remove("snake");
-  }
-    //*remove snake once is moving
-    function removeSnakeMotion() {
-        console.log("SNAKE REMOVED")
-        cells[currentSnake -1].classList.remove('snake')
-      }
-        //*---------------------------------------------------------------------
+  function addSnake(snake, eachCellinsideGrid) {
+  
+    // const gridElements = document.querySelectorAll(".grid>div");
+    gridElements.forEach((cell) => cell.classList.remove("snake"));
 
-  //*add food
-  function addFood(position) {
-    console.log("FOOD BEING ADDED TO THE FOLLOWING CELL ->", position);
-    cells[foodCell].classList.add("food");
+
+    for (let i = 0; i < snake.length; i++) {
+   
+      eachCellinsideGrid[snake[i]].classList.add("snake");
+    }
   }
-  //*remove food
+ 
+
+  function addFood(eachCellinsideGrid) {
+    foodCell = Math.floor(Math.random() * cellCount);
+    if (snake.includes(foodCell)) {
+      foodCell = Math.floor(Math.random() * cellCount);
+    } else {
+      eachCellinsideGrid[foodCell].classList.add("food");
+    }
+  }
+
   function removeFood() {
-    console.log("FOOD REMOVED")
-    cells[currentSnake].classList.remove('food')
-  }
+    eachCellinsideGrid[foodCell].classList.remove('food')
+    }
 
+const score = 0
 
-  //? HANDLE MOVEMENT ---------------------------------------------------------------------------
-
+    let snakeTimer
   function handleMovement(event) {
     console.log(event);
     const key = event.keyCode;
@@ -101,73 +86,96 @@ function loadGame() {
     const right = 39;
     const spaceBar = 32;
 
-    removeSnake();
+    const newHead = snake[0];
 
-    //check which key was pressed and execut the code
-    if (key === up && currentSnake[0] >+ width) {
-      console.log("UP")
-      currentSnake[0] -= width
-      growSnake(currentSnake)
-    } else if (key === down && currentSnake + width <= cellCount - 1) {
-      console.log("DOWN")
-      currentSnake += width
-    } else if (key === left && currentSnake % width !== 0) { 
-      console.log("left")
-      currentSnake--
-    } else if (key === right && currentSnake % width !== 9) {
-      console.log("right")
-      currentSnake++
+  //  let snakeTimer
+    clearInterval(snakeTimer)
+
+    //check which key was pressed and execut the code/ check that the head of the snake
+   
+      if (key === up && newHead > +width) {
+        clearInterval(snakeTimer)
+          snakeTimer = setInterval(()=> {
+            
+            if(!eachCellinsideGrid[snake[0]-width].classList.contains("food")) {
+              snake.unshift(newHead - width)
+              snake.pop();
+              
+            } else {
+              snake.unshift(newHead - width)
+              removeFood()
+              addFood(eachCellinsideGrid)
+            }  },1000)
+         
+             
+           
+            console.log(snake);
+
+    } else if (key === down && newHead + width <= cellCount - 1) {
+      clearInterval(snakeTimer)
+      snakeTimer = setInterval(()=> {
+               if(!eachCellinsideGrid[snake[0]+width].classList.contains("food")) {
+                snake.unshift(newHead + width);
+                snake.pop();
+
+              } else {
+                snake.unshift(newHead + width)
+                removeFood()
+                addFood(eachCellinsideGrid)
+              } }, 1000)
+            // eachCellinsideGrid[snake[snake.length - 1]].classList.remove("snake");
+            // addSnake(snake, eachCellinsideGrid);
+
+    } else if (key === left && newHead % width !== 0) {
+      clearInterval(snakeTimer)
+      snakeTimer = setInterval(()=> {
+              if( !eachCellinsideGrid[snake[0]-1].classList.contains("food") ) {
+                snake.unshift(newHead - 1);
+                snake.pop();
+
+              }   else {
+                snake.unshift(newHead - 1)
+                removeFood()
+                addFood(eachCellinsideGrid)
+              } }, 1000)
+            // eachCellinsideGrid[snake[snake.length - 1]].classList.remove("snake");
+            // addSnake(snake, eachCellinsideGrid);
+
+    } else if (key === right && newHead % width !== 9) {  
+      clearInterval(snakeTimer)
+          snakeTimer = setInterval(()=> {
+            if(!eachCellinsideGrid[snake[0]+1].classList.contains("food")) {
+              snake.unshift(newHead + 1);
+              snake.pop();
+            }  else {
+              snake.unshift(newHead +1)
+              removeFood()
+              addFood(eachCellinsideGrid)
+            }},1000)
+            // eachCellinsideGrid[snake[snake.length - 1]].classList.remove("snake");
+            // addSnake(snake, eachCellinsideGrid);
+
+  
     } else if (key === spaceBar) {
-        console.log("space bar")
-      }else {
-      console.log("INVALID KEY")
+      console.log("space bar");
+    } 
+    //else if () {
+      //snakehead touches snake game over
+    //} 
+    else {
+      console.log("GAME OVER");
     }
-    //*add snake once snake position has been updated with the keypad
-    addSnake(currentSnake)
+    addSnake(snake, eachCellinsideGrid);
+
   }
-      //*---------------------------------------------------------------------
-      const newHeadposition= []
-      console.log(newHeadposition)
 
-  //*snake automated movement once the game starts
-  function automaticSnake() {
-    // const newHeadposition= []
-    currentSnake++
-    removeSnakeMotion()
-    // array.forEach(element => {
-      
-    // });
-    newHeadposition.push(addSnake(currentSnake))
-} 
-  // setInterval(automaticSnake, 1000)
-
-
-  //*snake growth when head hits food
-
-      //*---------------------------------------------------------------------
-
-    //   function growSnake(position) {//* this also needs to place food again on the board
-    //     if(cells[position].classList.contains("food")) {
-    //       currentSnake.unshift(cells[position].classList.add("snake"))
-    //         removeFood()
-    //         addFood()
-    //         }
-       
-    //     return currentSnake;
-        
-    // }
-    // growSnake()
-
-// function checkforhit(){}
 
 
   //! EVENTS-----------------------------------------------------------------------------------
   //!------------------------------------------------------------------------------------------
-  document.addEventListener('keyup', handleMovement)
+  document.addEventListener("keyup", handleMovement);
 
-  //! PAGE LOAD----------------------------------------------------------------------------------
-  //!--------------------------------------------------------------------------------------------
-  startGame(); // create grid on page
+  startGame();
+  // setInterval(handleMovement, 1000)
 }
-
 window.addEventListener("DOMContentLoaded", loadGame);
