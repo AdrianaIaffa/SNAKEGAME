@@ -76,6 +76,7 @@ function loadGame() {
 const score = 0
 
     let snakeTimer
+
   function handleMovement(event) {
     console.log(event);
     const key = event.keyCode;
@@ -109,7 +110,7 @@ const score = 0
          
              
            
-            console.log(snake);
+          
 
     } else if (key === down && newHead + width <= cellCount - 1) {
       clearInterval(snakeTimer)

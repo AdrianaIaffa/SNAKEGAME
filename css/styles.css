@@ -10,9 +10,11 @@
 
 /* -----PAGE LAYOUT----------------------------------------------------------------*/
 .title {
+  font-family: 'Press Start 2P', cursive;
   margin: 0 auto;
   font-size: 50px;
   text-align: center;
+  text-shadow: 2px 2px 4px #000;
 }    
 
 .gamearea {
@@ -35,18 +37,28 @@
   }  
    .score, .time, .snakestats {
     display: flex;
-    border: 1px solid black;
+    /* flex-direction: column; */
+    /* justify-content: flex-end; */
+    align-items: flex-start;
+    /* border: 1px solid black; */
     width: 33%;
-    height: 50px;
+    /* height: 50px; */
     font-size: 20px;
-    text-align: left;
-    align-items: flex-end;
+    /* text-align: left;
+    align-items: flex-end; */
   } 
 
-  .score > p {
-    display: flex;
+  .score > p  {
+    /* display: flex;
     justify-content: flex-start;
-    text-align: end;
+    text-align: end; */
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .time > p {
+    margin: 0;
+    font-size: 20px;
   }
   .snakegrid {
     margin: 10px auto;    
@@ -98,18 +110,29 @@
 /*----- Stats*/
 .display {
   display: flex;
-  margin: 0 auto;
-  border: solid 1px red;
-  width: 400px;
-  height:100px;
-  font-size: x-large;
+    margin: 0 auto;
+    /* border: solid 1px red; */
+    width: 400px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
 }
-
 .display p {
-  font-size: x-large;
-  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 50px;
+  text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff;
+  color: red;
+  animation: neon 1s infinite alternate;
 }
 
+@keyframes neon {
+  from {
+    text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff;
+  }
+  to {
+    text-shadow: 8px 8px 0px #fff, -8px -8px 0px #fff, 8px -8px 0px #fff, -8px 8px 0px #fff;
+  }
+}
 
   /*  ------- MODAL------------------------------------------------------------- */
   /* #staticBackdrop {
