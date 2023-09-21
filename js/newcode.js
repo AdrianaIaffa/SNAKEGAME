@@ -1,4 +1,6 @@
 //initialize game with
+const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
+
 
 function loadGame() {
   //create grid container where cells wil be created document.querySelector(.grid)
@@ -8,9 +10,9 @@ function loadGame() {
   //draw grid inside grid container
 
   //creats a variable with the width
-  const width = 10;
+  const width = 20;
   //creates a variable with the length
-  const height = 10;
+  const height = 20;
   //creates a variable that multiplies width by length
   const cellCount = width * height;
   //creates an empty array called cells, where each individual
@@ -25,6 +27,7 @@ function loadGame() {
   let snakeDirection = 1;
   let score = 0
   let gameRunning = true;
+  
 
   function startGame() {
     for (let i = 0; i < cellCount; i++) {
@@ -81,6 +84,7 @@ function loadGame() {
     } else if (key === right && snakeDirection !== -1) {
       snakeDirection = +1;
     } else if (key === spaceBar) {
+      // displayPause()
       pauseGame()
       console.log("space bar");
     } else {
@@ -102,13 +106,13 @@ function loadGame() {
   function startMovement() {
     clearInterval(snakeTimer)
      snakeTimer = setInterval(()=> {
-      const currentX = snake[0] % width
-      const currentY = Math.floor(snake[0] / width)
+      const horizontalPosition = snake[0] % width
+      const verticalPosition = Math.floor(snake[0] / width)
       if(
-        currentX === 9 && snakeDirection === 1 || 
-        currentX === 0 && snakeDirection === -1 || 
-        currentY === 9 && snakeDirection === 10 || 
-        currentY === 0 && snakeDirection === -10 ||
+        horizontalPosition === 19 && snakeDirection === 1 || 
+        horizontalPosition === 0 && snakeDirection === -1 || 
+        verticalPosition === 19 && snakeDirection === 20 || 
+        verticalPosition === 0 && snakeDirection === -20 ||
         checkCollision()
         ) {
           clearInterval(snakeTimer)
@@ -116,6 +120,7 @@ function loadGame() {
           gameRunning = false;
           console.log('gameOver')
           displayGameOver();
+          // playSound()
           return
         }
         
@@ -127,9 +132,10 @@ function loadGame() {
       }  
       snake.unshift(snake[0] + snakeDirection)
         addSnake(snake, eachCellinsideGrid)
-     }, 1000 ) 
+     }, 500 ) 
     }
   startMovement()
+
 
 
   function displayGameOver() {
@@ -137,11 +143,18 @@ function loadGame() {
     const display= document.querySelector(".display")
     gameOver.classList.add("game-over-message")
     display.innerHTML = "<p>Game Over</p>"
+    const gameOverSound = new Audio("./media/videogame-death-sound-43894.mp3")
+    gameOverSound.play()
+    setTimeout(() => {
+      myModal.show();
+    }, 2000);
   }
 
   function displayScore() {
     const scoreCount= document.querySelector(".scoring")
     scoreCount.innerHTML = score
+    const scorePoint = new Audio("./media/mario-coin-200bpm-82548.mp3")
+    scorePoint.play()
   }
 
   const timer = document.querySelector(".timer")
@@ -154,14 +167,28 @@ function loadGame() {
   }
 
   function pauseGame() {
-    paused = !paused; 
-    if (paused) {
+    const pauseGame = document.createElement("p")
+    const display= document.querySelector(".display")
+    pauseGame.classList.add("paused-message")
+    if (gameRunning) {
+      gameRunning = false
+      display.innerHTML = "<p>Game Paused</p>"
       clearInterval(snakeTimer); 
     } else {
+      gameRunning = true
+      display.innerHTML = ""
       startMovement(); 
     }
   }
-  
+  const newGameButton = document.getElementById("newGameButton");
+  newGameButton.addEventListener("click", loadGame);    
+  const noButton = document.getElementById("noButton");
+
+
+  noButton.addEventListener("click", () => {
+  myModal.hide();
+  });
+
   document.addEventListener("keyup", handleMovement);
 
   startGame();
@@ -171,3 +198,5 @@ function loadGame() {
 
 }
 window.addEventListener("DOMContentLoaded", loadGame);
+// const newGameButton = document.getElementById("newGameButton");
+// newGameButton.addEventListener("click", loadGame);   

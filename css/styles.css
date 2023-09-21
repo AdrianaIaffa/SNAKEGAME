@@ -5,16 +5,17 @@
   body {
     height: 100vh;
     margin: 0;
-    font-family: 'VT323', monospace;
+    font-family: 'Press Start 2P', cursive;
   }
 
 /* -----PAGE LAYOUT----------------------------------------------------------------*/
 .title {
-  font-family: 'Press Start 2P', cursive;
+  /* font-family: 'Press Start 2P', cursive; */
   margin: 0 auto;
   font-size: 50px;
   text-align: center;
-  text-shadow: 2px 2px 4px #000;
+  text-shadow: 6px 4px 0px #edaffc;;
+  color: black;
 }    
 
 .gamearea {
@@ -26,7 +27,6 @@
       
   }
   .statspanel {
-    /* border: 1px solid red; */
     width: 400px; 
     height: 50px;
     margin: 10px auto;
@@ -48,18 +48,12 @@
     align-items: flex-end; */
   } 
 
-  .score > p  {
-    /* display: flex;
-    justify-content: flex-start;
-    text-align: end; */
+  .score > p,
+  .time > p  {
     margin: 0;
-    font-size: 20px;
+    font-size: 10px;
   }
 
-  .time > p {
-    margin: 0;
-    font-size: 20px;
-  }
   .snakegrid {
     margin: 10px auto;    
   }
@@ -67,19 +61,14 @@
   /*------ FOR GAME GRID---------------------------------------------------------- */
   .grid-container {
     height: 100vh;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
   }
   
   .grid {
-    /* border: 1px solid black; */
     align-items: center;
     box-shadow:     -15px 0 0 0 black,
                     15px 0 0 0 black,
                     0 -15px 0 0 black,
                     0 15px 0 0 black;
-    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -91,19 +80,17 @@
   .grid div {
     border: 1px solid lightgrey;
     flex-grow: 1;
-    /* height: 10%;
-    width: 10%; */
+
   }
     /*------ CHARACTERS---------------------------------------------------------- */
 
   .grid div.snake {
-    /* background-size: contain; */
-    background-color: chartreuse;
+    background-color: #AAF0D1;
     cursor: pointer;
   }
   .grid div.food {
     cursor: pointer;
-    background-color: cornflowerblue;
+    background-color: #edaffc;
   }
 
 
@@ -111,7 +98,6 @@
 .display {
   display: flex;
     margin: 0 auto;
-    /* border: solid 1px red; */
     width: 400px;
     height: 100px;
     justify-content: center;
@@ -119,55 +105,62 @@
 }
 .display p {
   font-family: 'Press Start 2P', cursive;
-  font-size: 50px;
-  text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff;
-  color: red;
-  animation: neon 1s infinite alternate;
+  font-size: 30px;
+  /* text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff; */
+  color: #fd4d53;
+  text-shadow:     -15px 0 0 0 black,
+  15px 0 0 0 black,
+  0 -15px 0 0 black,
+  0 15px 0 0 black;
+  /* animation: neon 1s infinite alternate; */
 }
 
-@keyframes neon {
+/* @keyframes neon {
   from {
     text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff;
   }
   to {
     text-shadow: 8px 8px 0px #fff, -8px -8px 0px #fff, 8px -8px 0px #fff, -8px 8px 0px #fff;
   }
-}
+} */
 
   /*  ------- MODAL------------------------------------------------------------- */
-  /* #staticBackdrop {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 800px;
+  #staticBackdrop {
+   margin-top: 200px;
   }
 
   .modal-dialog {
-   box-shadow:  6px 10px 12px #000;
+    display: flex;
+    justify-content: flex-end;
+
+   border: 2px solid black;
   }
   .modal-header {
     display: flex;
     flex-direction: column;
     justify-content: center;  
-    border: none;
+      border-bottom: black 2px solid;
+    background-color: #edaffc
   }
   .modal-body {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    gap: 10px;
+    background-color: #6ffdfd;
+    font-size: 30px;
   }
-
-  .menubtn {
-    padding: 10px;
-    background-color: white;
+.modal-buttons{
+     background-color: #6ffdfd;
+    display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding-bottom: 20px;
   }
-
-  .menubtn:hover { 
-    background-color: aqua; 
-   
-  } 
- */
+  .modal-buttons > buttons:hover {
+    background-color: yellow;
+  }
+  .modal-footer {
+    border-top: black 2px solid;
+    background-color: #AAF0D1
+  }
 
   
