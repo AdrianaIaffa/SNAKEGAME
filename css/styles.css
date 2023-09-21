@@ -1,166 +1,145 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    height: 100vh;
-    margin: 0;
-    font-family: 'Press Start 2P', cursive;
-  }
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: "Press Start 2P", cursive;
+}
 
 /* -----PAGE LAYOUT----------------------------------------------------------------*/
 .title {
-  /* font-family: 'Press Start 2P', cursive; */
   margin: 0 auto;
   font-size: 50px;
   text-align: center;
-  text-shadow: 6px 4px 0px #edaffc;;
+  text-shadow: 6px 4px 0px #edaffc;
   color: black;
-}    
+}
 
 .gamearea {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
-      margin: 20px;
-      
-  }
-  .statspanel {
-    width: 400px; 
-    height: 50px;
-    margin: 10px auto;
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }  
-   .score, .time, .snakestats {
-    display: flex;
-    /* flex-direction: column; */
-    /* justify-content: flex-end; */
-    align-items: flex-start;
-    /* border: 1px solid black; */
-    width: 33%;
-    /* height: 50px; */
-    font-size: 20px;
-    /* text-align: left;
-    align-items: flex-end; */
-  } 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 20px;
+}
+.statspanel {
+  width: 400px;
+  height: 50px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.score,
+.time {
+  display: flex;
+  align-items: flex-start;
+  width: 33%;
+  font-size: 20px;
+}
 
-  .score > p,
-  .time > p  {
-    margin: 0;
-    font-size: 10px;
-  }
+.score > p,
+.time > p {
+  margin: 0;
+  font-size: 10px;
+}
 
-  .snakegrid {
-    margin: 10px auto;    
-  }
-  
-  /*------ FOR GAME GRID---------------------------------------------------------- */
-  .grid-container {
-    height: 100vh;
-  }
-  
-  .grid {
-    align-items: center;
-    box-shadow:     -15px 0 0 0 black,
-                    15px 0 0 0 black,
-                    0 -15px 0 0 black,
-                    0 15px 0 0 black;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-    justify-content: center;
-    height: 400px;
-    width: 400px;
-  }
-  
-  .grid div {
-    border: 1px solid lightgrey;
-    flex-grow: 1;
+.snakegrid {
+  margin: 10px auto;
+}
 
-  }
-    /*------ CHARACTERS---------------------------------------------------------- */
+/*------ FOR GAME GRID---------------------------------------------------------- */
+.grid-container {
+  height: 100vh;
+}
 
-  .grid div.snake {
-    background-color: #AAF0D1;
-    cursor: pointer;
-  }
-  .grid div.food {
-    cursor: pointer;
-    background-color: #edaffc;
-  }
+.grid {
+  align-items: center;
+  box-shadow: -15px 0 0 0 black, 15px 0 0 0 black, 0 -15px 0 0 black,
+    0 15px 0 0 black;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 400px;
+  width: 400px;
+}
 
+.grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+}
+/*------ CHARACTERS---------------------------------------------------------- */
+
+.grid div.snake {
+  background-color: #aaf0d1;
+  cursor: pointer;
+}
+.grid div.food {
+  cursor: pointer;
+  background-color: #edaffc;
+}
 
 /*----- Stats*/
 .display {
   display: flex;
-    margin: 0 auto;
-    width: 400px;
-    height: 100px;
-    justify-content: center;
-    align-items: center;
+  margin: 0 auto;
+  width: 400px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
 }
 .display p {
-  font-family: 'Press Start 2P', cursive;
   font-size: 30px;
-  /* text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff; */
   color: #fd4d53;
-  text-shadow:     -15px 0 0 0 black,
-  15px 0 0 0 black,
-  0 -15px 0 0 black,
-  0 15px 0 0 black;
-  /* animation: neon 1s infinite alternate; */
 }
-
-/* @keyframes neon {
-  from {
-    text-shadow: 4px 4px 0px #fff, -4px -4px 0px #fff, 4px -4px 0px #fff, -4px 4px 0px #fff;
-  }
-  to {
-    text-shadow: 8px 8px 0px #fff, -8px -8px 0px #fff, 8px -8px 0px #fff, -8px 8px 0px #fff;
-  }
-} */
-
-  /*  ------- MODAL------------------------------------------------------------- */
-  #staticBackdrop {
-   margin-top: 200px;
-  }
-
-  .modal-dialog {
-    display: flex;
-    justify-content: flex-end;
-
-   border: 2px solid black;
-  }
-  .modal-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  
-      border-bottom: black 2px solid;
-    background-color: #edaffc
-  }
-  .modal-body {
-    display: flex;
-    justify-content: center;
-    background-color: #6ffdfd;
-    font-size: 30px;
-  }
-.modal-buttons{
-     background-color: #6ffdfd;
-    display: flex;
+/*  ------- MODAL------------------------------------------------------------- */
+div#staticBackdrop.modal.fade.show {
+  display: flex !important;
+  --bs-modal-inner-border-radius: 0 !important;
+  justify-content: center;
+  align-items: center;
+}
+.modal-dialog {
+  display: flex;
+  justify-content: flex-end;
+  border: 2px solid black;
+}
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: black 2px solid;
+  background-color: #edaffc;
+}
+.modal-body {
+  display: flex;
+  justify-content: center;
+  background-color: #6ffdfd;
+  font-size: 30px;
+}
+.modal-buttons {
+  background-color: #6ffdfd;
+  display: flex;
   justify-content: center;
   gap: 50px;
   padding-bottom: 20px;
-  }
-  .modal-buttons > buttons:hover {
-    background-color: yellow;
-  }
-  .modal-footer {
-    border-top: black 2px solid;
-    background-color: #AAF0D1
-  }
+}
 
-  
+.modal-buttons button {
+  transition: background-color 0.3s;
+  border: 1 pixel solid black;
+  background-color: #6ffdfd;
+  margin-left: 0;
+}
+.modal-buttons > button:hover {
+  background-color: yellow;
+}
+.modal-footer {
+  border-top: black 2px solid;
+  background-color: #aaf0d1;
+}

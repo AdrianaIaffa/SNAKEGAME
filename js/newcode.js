@@ -1,6 +1,5 @@
-//initialize game with
-const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
 
+const myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
 
 function loadGame() {
   //create grid container where cells wil be created document.querySelector(.grid)
@@ -25,9 +24,10 @@ function loadGame() {
   let foodCell = Math.floor(Math.random() * cellCount);
   let snakeTimer;
   let snakeDirection = 1;
-  let score = 0
+  let score = 0;
   let gameRunning = true;
-  
+  let speedLevel = 1
+
 
   function startGame() {
     for (let i = 0; i < cellCount; i++) {
@@ -46,19 +46,19 @@ function loadGame() {
   function addSnake(snake, eachCellinsideGrid) {
     const gridElements = document.querySelectorAll(".grid>div");
     gridElements.forEach((cell) => cell.classList.remove("snake"));
-      for (let i = 0; i < snake.length; i++) {
-        eachCellinsideGrid[snake[i]].classList.add("snake");
-      }
+    for (let i = 0; i < snake.length; i++) {
+      eachCellinsideGrid[snake[i]].classList.add("snake");
+    }
   }
 
   function addFood(eachCellinsideGrid) {
     foodCell = Math.floor(Math.random() * cellCount);
-      if (snake.includes(foodCell)) {
-        foodCell = Math.floor(Math.random() * cellCount);
-      } else {
-        eachCellinsideGrid[foodCell].classList.add("food");
-      }
-    score += 10;
+    if (snake.includes(foodCell)) {
+      foodCell = Math.floor(Math.random() * cellCount);
+    } else {
+      eachCellinsideGrid[foodCell].classList.add("food");
+    }
+
     displayScore();
   }
 
@@ -85,7 +85,7 @@ function loadGame() {
       snakeDirection = +1;
     } else if (key === spaceBar) {
       // displayPause()
-      pauseGame()
+      pauseGame();
       console.log("space bar");
     } else {
       console.log("GAME OVER");
@@ -97,106 +97,158 @@ function loadGame() {
     const head = snake[0];
     for (let i = 1; i < snake.length; i++) {
       if (head === snake[i]) {
-        return true; 
+        return true;
       }
     }
-    return false; 
+    return false;
   }
 
   function startMovement() {
-    clearInterval(snakeTimer)
-     snakeTimer = setInterval(()=> {
-      const horizontalPosition = snake[0] % width
-      const verticalPosition = Math.floor(snake[0] / width)
-      if(
-        horizontalPosition === 19 && snakeDirection === 1 || 
-        horizontalPosition === 0 && snakeDirection === -1 || 
-        verticalPosition === 19 && snakeDirection === 20 || 
-        verticalPosition === 0 && snakeDirection === -20 ||
+    clearInterval(snakeTimer);
+      const speedInterval = 500 / speedLevel; 
+
+    snakeTimer = setInterval(() => {
+      const horizontalPosition = snake[0] % width;
+      const verticalPosition = Math.floor(snake[0] / width);
+      if (
+        (horizontalPosition === 19 && snakeDirection === 1) ||
+        (horizontalPosition === 0 && snakeDirection === -1) ||
+        (verticalPosition === 19 && snakeDirection === 20) ||
+        (verticalPosition === 0 && snakeDirection === -20) ||
         checkCollision()
-        ) {
-          clearInterval(snakeTimer)
-          clearInterval(valueCount)
-          gameRunning = false;
-          console.log('gameOver')
-          displayGameOver();
-          // playSound()
-          return
-        }
+      ) {
+        clearInterval(snakeTimer);
+        clearInterval(valueCount);
+        gameRunning = false;
+        console.log("gameOver");
+        displayGameOver();
+        return;
+      }
+
+      if (
+        !eachCellinsideGrid[snake[0] + snakeDirection].classList.contains(
+          "food"
+        )
+      ) {
         
-      if(!eachCellinsideGrid[snake[0] + snakeDirection].classList.contains("food")) {
         snake.pop();
+        
       } else {
-        removeFood()
-        addFood(eachCellinsideGrid)
-      }  
-      snake.unshift(snake[0] + snakeDirection)
-        addSnake(snake, eachCellinsideGrid)
-     }, 500 ) 
-    }
-  startMovement()
+        removeFood();
+        addFood(eachCellinsideGrid);
+        score += 10;
+        displayScore();
+        const display = document.querySelector(".display");
+        display.innerHTML = "";
+    
+        if (score > 0 && score % 50 === 0) {
+          speedLevel++; 
+          displayLevelUp()
+         startMovement()
+        }
+      }
+      snake.unshift(snake[0] + snakeDirection);
+      addSnake(snake, eachCellinsideGrid);
+    }, speedInterval);
+  }
+  startMovement();
 
-
+  function displayLevelUp() {
+    const displayLevel = document.createElement("p");
+    const display = document.querySelector(".display");
+    displayLevel.classList.add("levelip-message")
+    display.innerHTML = "<p>Level Up!"
+  }
 
   function displayGameOver() {
-    const gameOver = document.createElement("p")
-    const display= document.querySelector(".display")
-    gameOver.classList.add("game-over-message")
-    display.innerHTML = "<p>Game Over</p>"
-    const gameOverSound = new Audio("./media/videogame-death-sound-43894.mp3")
-    gameOverSound.play()
+    const gameOver = document.createElement("p");
+    const display = document.querySelector(".display");
+    gameOver.classList.add("game-over-message");
+    display.innerHTML = "<p>Game Over</p>";
+    const gameOverSound = new Audio("./media/videogame-death-sound-43894.mp3");
+    gameOverSound.play();
     setTimeout(() => {
       myModal.show();
     }, 2000);
   }
 
   function displayScore() {
-    const scoreCount= document.querySelector(".scoring")
-    scoreCount.innerHTML = score
-    const scorePoint = new Audio("./media/mario-coin-200bpm-82548.mp3")
-    scorePoint.play()
+    const scoreCount = document.querySelector(".scoring");
+    scoreCount.innerHTML = score;
+    const scorePoint = new Audio("./media/mario-coin-200bpm-82548.mp3");
+    scorePoint.play();
   }
 
-  const timer = document.querySelector(".timer")
-  let startTimer = 0, clear;
+  const timer = document.querySelector(".timer");
+  let startTimer = 0,
+    clear;
   function valueCount() {
-    if(gameRunning) {
-      startTimer++
-      timer.innerHTML =  startTimer;
+    if (gameRunning) {
+      startTimer++;
+      timer.innerHTML = startTimer;
     }
   }
 
   function pauseGame() {
-    const pauseGame = document.createElement("p")
-    const display= document.querySelector(".display")
-    pauseGame.classList.add("paused-message")
+    const pauseGame = document.createElement("p");
+    const display = document.querySelector(".display");
+    pauseGame.classList.add("paused-message");
     if (gameRunning) {
-      gameRunning = false
-      display.innerHTML = "<p>Game Paused</p>"
-      clearInterval(snakeTimer); 
+      gameRunning = false;
+      display.innerHTML = "<p>Game Paused</p>";
+      clearInterval(snakeTimer);
     } else {
-      gameRunning = true
-      display.innerHTML = ""
-      startMovement(); 
+      gameRunning = true;
+      display.innerHTML = "";
+      startMovement();
     }
   }
+  // Function to start a new game
+
+  function startNewGame() {
+    // Reset game variables
+    snake.length = 0;
+    snake.push(32, 31, 30);
+    foodCell = Math.floor(Math.random() * cellCount);
+    snakeDirection = 1;
+    score = 0;
+    gameRunning = true;
+
+    // Clear the display
+    const display = document.querySelector(".display");
+    display.innerHTML = "";
+
+    // Clear the timer
+    startTimer = 0;
+    timer.innerHTML = startTimer;
+
+    // Reset the grid cells
+    eachCellinsideGrid.forEach((cell) =>
+      cell.classList.remove("snake", "food")
+    );
+
+    // Add the initial snake and food
+    addSnake(snake, eachCellinsideGrid);
+    addFood(eachCellinsideGrid);
+
+    // Close the modal
+    myModal.hide();
+    startMovement();
+  }
   const newGameButton = document.getElementById("newGameButton");
-  newGameButton.addEventListener("click", loadGame);    
+  newGameButton.addEventListener("click", startNewGame);
+
   const noButton = document.getElementById("noButton");
 
-
   noButton.addEventListener("click", () => {
-  myModal.hide();
+    myModal.hide();
   });
 
   document.addEventListener("keyup", handleMovement);
 
   startGame();
-  displayScore()
+  displayScore();
   setInterval(valueCount, 1000);
   displayScore();
-
 }
 window.addEventListener("DOMContentLoaded", loadGame);
-// const newGameButton = document.getElementById("newGameButton");
-// newGameButton.addEventListener("click", loadGame);   
