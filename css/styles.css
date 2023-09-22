@@ -9,7 +9,7 @@ body {
   font-family: "Press Start 2P", cursive;
 }
 
-/* -----PAGE LAYOUT----------------------------------------------------------------*/
+/* Page Layout */
 .title {
   margin: 0 auto;
   font-size: 50px;
@@ -18,6 +18,8 @@ body {
   color: black;
 }
 
+/* Game Area */
+
 .gamearea {
   display: flex;
   flex-direction: column;
@@ -25,6 +27,9 @@ body {
   align-content: center;
   margin: 20px;
 }
+
+/* Stats Panel */
+
 .statspanel {
   width: 400px;
   height: 50px;
@@ -48,13 +53,16 @@ body {
   font-size: 10px;
 }
 
+/* Snake Grid */
+
 .snakegrid {
   margin: 10px auto;
 }
 
-/*------ FOR GAME GRID---------------------------------------------------------- */
+/* Game Grid Container */
+
 .grid-container {
-  height: 100vh;
+  margin-bottom: 10px;
 }
 
 .grid {
@@ -70,10 +78,11 @@ body {
 }
 
 .grid div {
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   flex-grow: 1;
 }
-/*------ CHARACTERS---------------------------------------------------------- */
+
+/* Characters */
 
 .grid div.snake {
   background-color: #aaf0d1;
@@ -84,7 +93,8 @@ body {
   background-color: #edaffc;
 }
 
-/*----- Stats*/
+/* Stats Display */
+
 .display {
   display: flex;
   margin: 0 auto;
@@ -96,8 +106,11 @@ body {
 .display p {
   font-size: 30px;
   color: #fd4d53;
+  text-shadow: 4px 2px #0d6efd;
 }
-/*  ------- MODAL------------------------------------------------------------- */
+
+/* Modal */
+
 div#staticBackdrop.modal.fade.show {
   display: flex !important;
   --bs-modal-inner-border-radius: 0 !important;
@@ -142,4 +155,8 @@ div#staticBackdrop.modal.fade.show {
 .modal-footer {
   border-top: black 2px solid;
   background-color: #aaf0d1;
+}
+footer > p {
+  font-size: 5px;
+  padding-left: 20px;
 }
