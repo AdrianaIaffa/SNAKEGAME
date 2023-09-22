@@ -129,8 +129,7 @@ function loadGame() {
         addFood(eachCellinsideGrid);
         score += 10;
         displayScore();
-        const display = document.querySelector(".display");
-        display.innerHTML = "";
+       
     
         if (score > 0 && score % 50 === 0) {
           speedLevel++;
@@ -150,7 +149,11 @@ function loadGame() {
     const displayLevel = document.createElement("p");
     const display = document.querySelector(".display");
     displayLevel.classList.add("levelip-message");
-    display.innerHTML = "<p>Level Up!</p>";
+    display.innerHTML = "<p>Level Up!</p>"
+    setTimeout(() => {
+      const display = document.querySelector(".display");
+      display.innerHTML = "";
+    }, 1000)
   }
   // Function to display a game over message
   function displayGameOver() {
