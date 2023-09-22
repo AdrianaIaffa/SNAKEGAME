@@ -153,7 +153,7 @@ function loadGame() {
     setTimeout(() => {
       const display = document.querySelector(".display");
       display.innerHTML = "";
-    }, 1000)
+    }, 1500)
   }
   // Function to display a game over message
   function displayGameOver() {
