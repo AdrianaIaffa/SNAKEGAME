@@ -8,7 +8,7 @@ function loadGame() {
   const height = 20;
   const cellCount = width * height;
   let eachCellinsideGrid = [];
-  const snake = [32, 31, 30];
+  const snake = [146, 145, 144];
   let foodCell = Math.floor(Math.random() * cellCount);
   let snakeTimer;
   let snakeDirection = 1;

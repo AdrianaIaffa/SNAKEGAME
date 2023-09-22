@@ -78,7 +78,7 @@ body {
 }
 
 .grid div {
-  /* border: 1px solid lightgrey; */
+  border: 1px solid #F5F5F4;
   flex-grow: 1;
 }
 
@@ -159,4 +159,8 @@ div#staticBackdrop.modal.fade.show {
 footer > p {
   font-size: 5px;
   padding-left: 20px;
+}
+footer a {
+  text-decoration: none; /* Remove underline */
+  color: #000; /* Set the color to black */
 }
